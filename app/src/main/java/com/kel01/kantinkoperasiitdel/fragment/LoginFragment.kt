@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.DialogInterface
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,10 +13,14 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
 import com.kel01.kantinkoperasiitdel.R
 import com.kel01.kantinkoperasiitdel.R.*
-import com.kel01.kantinkoperasiitdel.activity.MainActivity
+import com.kel01.kantinkoperasiitdel.api.ApiClient
+import com.kel01.kantinkoperasiitdel.model.LoginResponseModel
+import com.kel01.kantinkoperasiitdel.model.UserModel
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
@@ -73,13 +78,13 @@ class LoginFragment() : Fragment(), View.OnClickListener {
     }
 
     fun checkLogin() {
-        val email = editTextEmail.text.toString()
+        val username = editTextEmail.text.toString()
         val password = editTextPassword.text.toString()
-        if(email.isEmpty() || password.isEmpty()) {
+        if(username.isEmpty() || password.isEmpty()) {
             alertfail("Email dan password harus diisi.")
         }
         else {
-            sendLogin()
+            sendLogin(username, password)
         }
     }
 
@@ -91,14 +96,39 @@ class LoginFragment() : Fragment(), View.OnClickListener {
             setIcon(R.drawable.ic_baseline_warning_24)
             setMessage(s)
             setPositiveButton("OK", DialogInterface.OnClickListener { dialogInterface, i ->
-                Toast.makeText(this@LoginFragment.requireActivity(), "OK", Toast.LENGTH_SHORT)
+                Toast.makeText(this@LoginFragment.requireActivity(), "OK", Toast.LENGTH_SHORT).show()
             })
             show()
         }
     }
 
-    fun sendLogin() {
+    fun sendLogin(username: String, password: String) {
+        var success: Int? = 0
+        var message: String? = ""
+        var user: UserModel
 
+        ApiClient
+            .getClient
+            .login(username, password)
+            .enqueue(object : Callback<LoginResponseModel> {
+                override fun onResponse(
+                    call: Call<LoginResponseModel>,
+                    response: Response<LoginResponseModel>
+                ) {
+                    success = response.body()?.success
+                    message = response.body()?.message
+                    user = response.body()?.user!!
+
+                    if(success == 1) {
+                        Toast.makeText(this@LoginFragment.requireActivity(), message.toString(), Toast.LENGTH_SHORT).show()
+                    }
+                }
+
+                override fun onFailure(call: Call<LoginResponseModel>, t: Throwable) {
+                    t.message?.let { Log.d("DEBUG", it) }
+                }
+
+            })
     }
 
     @SuppressLint("ResourceType")
