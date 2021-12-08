@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragment.RegisterFragment"
+    android:layout_marginHorizontal="20dp">
+
+    <TextView
+        android:id="@+id/textViewRegister"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Register"
+        android:textStyle="bold"
+        android:textSize="30dp"
+        android:layout_marginBottom="10dp"
+        android:layout_above="@id/linearLayoutRegister"/>
+    
+    <LinearLayout
+        android:id="@+id/linearLayoutRegister"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true">
+
+        <EditText
+            android:id="@+id/editTextNoKTPRegister"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Nomor KTP..."
+            android:maxLength="16"
+            android:inputType="number"/>
+
+        <EditText
+            android:id="@+id/editTextNamaLengkapRegister"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Nama Lengkap..."
+            android:inputType="text"/>
+
+        <EditText
+            android:id="@+id/editTextNoHPRegister"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Nomor HP..."
+            android:maxLength="15"
+            android:inputType="phone"/>
+
+        <EditText
+            android:id="@+id/editTextUsernameEmailRegister"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Username..."
+            android:inputType="textEmailAddress"/>
+
+        <EditText
+            android:id="@+id/editTextPasswordRegister"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Password..."
+            android:inputType="textPassword"/>
+
+    </LinearLayout>
+    
+    <Button
+        android:id="@+id/btnRegister"
+        android:layout_below="@id/linearLayoutRegister"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Register"/>
+
+</RelativeLayout>
