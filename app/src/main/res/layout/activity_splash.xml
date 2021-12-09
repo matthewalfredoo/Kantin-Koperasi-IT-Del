@@ -14,8 +14,9 @@
 
         <ImageView
             android:layout_width="wrap_content"
-            android:layout_height="150dp"
+            android:layout_height="80dp"
             android:src="@drawable/logodel"
+            android:layout_weight="1"
             android:layout_gravity="center_vertical"/>
 
         <TextView
@@ -23,6 +24,7 @@
             android:layout_height="wrap_content"
             android:text="Koperasi dan Kantin IT Del"
             android:layout_gravity="center_vertical"
+            android:layout_weight="2"
             android:textSize="30dp"
             android:layout_marginEnd="20dp"/>
 
